@@ -10,6 +10,18 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="css/style.css">
 
+    <style>
+        [x-cloak] { display: none !important; }
+        html { scroll-behavior: smooth; }
+        /* Animación para el botón de WhatsApp */
+        @keyframes pulse-green {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        }
+        .animate-whatsapp { animation: pulse-green 2s infinite; }
+    </style>
+
     <script>
         tailwind.config = {
             theme: { extend: { colors: { autiq: '#d32f2f' } } }
@@ -69,9 +81,9 @@
                                         </div>
                                     </template>
                                 </div>
-                                <div class="swiper-button-next"></div>
-                                <div class="swiper-button-prev"></div>
-                                <div class="swiper-pagination"></div>
+                                <div class="swiper-button-next !text-gray-900 !after:text-[12px] bg-white/80 w-8 h-8 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                <div class="swiper-button-prev !text-gray-900 !after:text-[12px] bg-white/80 w-8 h-8 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                <div class="swiper-pagination !bottom-2"></div>
                             </div>
                         </div>
                         <div class="grow flex flex-col px-1">
@@ -88,40 +100,40 @@
 
         <footer class="bg-gray-950 text-gray-300 py-16 mt-16 border-t border-gray-800">
             <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-12">
-            <div class="space-y-6">
-                <h4 class="text-xs uppercase font-black tracking-[0.2em] text-white">AUTIQ Accesorios</h4>
-                <p class="text-sm leading-relaxed">Tienda Virtual Copacabana Machado. <br>Personaliza, Protege y Destaca tu vehículo con nosotros.</p>
+                <div class="space-y-6">
+                    <h4 class="text-xs uppercase font-black tracking-[0.2em] text-white">AUTIQ Accesorios</h4>
+                    <p class="text-sm leading-relaxed">Tienda Virtual Copacabana Machado. <br>Personaliza, Protege y Destaca tu vehículo con nosotros.</p>
 
-                <div class="flex items-center gap-4 pt-2">
-                    <a href="https://instagram.com/auti.q" target="_blank" class="w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center hover:bg-pink-600 transition-colors text-white border border-gray-800">
-                        <i class="fa-brands fa-instagram text-xl"></i>
-                    </a>
-                    <a :href="whatsappUrl" target="_blank" class="w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center hover:bg-green-600 transition-colors text-white border border-gray-800">
-                        <i class="fa-brands fa-whatsapp text-xl"></i>
-                    </a>
+                    <div class="flex items-center gap-4 pt-2">
+                        <a href="https://instagram.com/auti.q" target="_blank" class="w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center hover:bg-pink-600 transition-colors text-white border border-gray-800">
+                            <i class="fa-brands fa-instagram text-xl"></i>
+                        </a>
+                        <a :href="whatsappUrl" target="_blank" class="w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center hover:bg-green-600 transition-colors text-white border border-gray-800">
+                            <i class="fa-brands fa-whatsapp text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            
+                <div class="space-y-4">
+                    <h4 class="text-xs uppercase font-black tracking-[0.2em] text-white">Atención al cliente</h4>
+                    <p class="text-sm italic">Lunes a Viernes: 9am - 6pm</p>
+                    <p class="text-sm">Sábados y domingos: 9am - 3pm</p>
+                    <p class="text-sm text-gray-500 mt-4">Punto de recogida en Copacabana (Bajo disponibilidad previa)</p>
+                </div>
+            
+                <div class="relative overflow-hidden rounded-xl border border-gray-800 h-48 bg-gray-900 shadow-lg">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15860.835474328227!2d-75.51869375!3d6.3669931!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e442f9a65f97337%3A0x8686e00cf9a0f4a8!2sCopacabana%2C%20Antioquia!5e0!3m2!1ses!2sco!4v1700000000000!5m2!1ses!2sco" 
+                        class="w-full h-full" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
                 </div>
             </div>
-        
-            <div class="space-y-4">
-                <h4 class="text-xs uppercase font-black tracking-[0.2em] text-white">Atención al cliente</h4>
-                <p class="text-sm italic">Lunes a Viernes: 9am - 6pm</p>
-                <p class="text-sm">Sábados y domingos: 9am - 3pm</p>
-                <p class="text-sm text-gray-500 mt-4">Punto de recogida en Copacabana (Bajo disponibilidad previa)</p>
-            </div>
-        
-            <div class="relative overflow-hidden rounded-xl border border-gray-800 h-48 bg-gray-900 shadow-lg">
-                <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.48451802881!2d-75.535457!3d6.331214600000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e442f651dfc068d%3A0xc3733830310ce7e2!2sAllegro%20Apartamentos!5e0!3m2!1ses!2sco!4v1774302293964!5m2!1ses!2sco" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-                    class="w-full h-full" 
-                    style="border:0;" 
-                    allowfullscreen="" 
-                    loading="lazy" 
-                    referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
-            </div>
-        </div>
             <div class="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-gray-900 text-center">
-                <p class="text-[10px] uppercase tracking-[0.3em] text-gray-600">&copy; 2026 AUTIQ. Todos los derechos reservados.</p>
+                <p class="text-[10px] uppercase tracking-[0.3em] text-gray-600">© 2026 AUTIQ. Todos los derechos reservados.</p>
             </div>
         </footer>
 
@@ -133,7 +145,7 @@
 
         <template x-teleport="body">
             <div x-show="openModal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-6" x-transition.opacity @keydown.escape.window="openModal = false" @click.self="openModal = false" style="display: none;">
-                <button @click="openModal = false" class="absolute top-5 right-5 text-white/50 hover:text-white text-4xl font-thin">&times;</button>
+                <button @click="openModal = false" class="absolute top-5 right-5 text-white/50 hover:text-white text-4xl font-thin">×</button>
                 <div class="relative max-w-lg w-full mx-auto bg-white p-2 rounded-lg" @click.stop>
                     <img :src="modalImg" class="w-full h-auto max-h-[75vh] object-contain rounded-sm">
                     <div class="py-2 text-center border-t border-gray-50 mt-2">
@@ -153,15 +165,14 @@
             return {
                 openModal: false,
                 modalImg: '',
-                
-                // --- CONFIGURACIÓN WHATSAPP ---
-                whatsappPhone: '573206583971', // REEMPLAZA CON TU NÚMERO (Sin el +)
+                whatsappPhone: '573206583971',
                 whatsappMessage: 'Hola AUTIQ! 🚘 Vi tu catálogo y me interesa obtener más información sobre un accesorio.',
                 
                 get whatsappUrl() {
                     return `https://wa.me/${this.whatsappPhone}?text=${encodeURIComponent(this.whatsappMessage)}`;
                 },
 
+                // REVISIÓN DE RUTAS (Ojo con Mayúsculas)
                 productos: [
                     { id: 1, name: 'CARBLOCK MILLONARIO', description: 'Elegancia y confort en un mismo Aroma. Edición Gold.', price: '$55.000', image1: 'img/Carblock.png', image2: 'img/Carblock1.png' },
                     { id: 2, name: 'TAPA VALVULA DE LUJO HYUNDAI', description: 'Tapa de válvula con diseño exclusivo para vehículos HYUNDAI.', price: '$22.000', image1: 'img/HYUNDAI.png', image2: 'img/HyundaiCar.png' },
