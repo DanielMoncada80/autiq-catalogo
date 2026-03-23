@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AUTIQ - Accesorios para Vehículo | Copacabana</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="css/style.css">
+
+    <script>
+        tailwind.config = {
+            theme: { extend: { colors: { autiq: '#d32f2f' } } }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-900 antialiased">
+
+    <div x-data="appStorage()" x-init="initSwipers()" x-cloak>
+
+        <nav class="bg-white border-b border-gray-100 sticky top-0 z-40">
+            <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+                <a href="#" class="text-2xl font-black tracking-tighter text-gray-900 uppercase">
+                    AUTIQ<span class="text-gray-400">.</span>
+                </a>
+                <div class="hidden md:flex items-center gap-10">
+                    <a href="#" class="text-[10px] uppercase font-bold tracking-[0.2em] text-gray-800 hover:text-gray-400 transition">Inicio</a>
+                    <a href="#catalogo" class="text-[10px] uppercase font-bold tracking-[0.2em] text-autiq hover:text-red-700 transition">Catálogo</a>
+                </div>
+            </div>
+        </nav>
+
+        <header class="bg-white flex items-center border-b border-gray-100 min-h-[calc(100vh-80px)]">
+            <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center w-full py-12">
+                <div class="space-y-8 order-2 md:order-1 text-center md:text-left">
+                    <h1 class="text-5xl md:text-7xl font-black tracking-tighter text-gray-950 leading-[0.9]">Accesorios para vehículo</h1>
+                    <div class="space-y-2 flex flex-col items-center md:items-start">
+                        <p class="text-sm md:text-lg text-autiq font-bold uppercase tracking-[0.3em]">PERSONALIZA | PROTEGE | DESTACA</p>
+                        <div class="h-1 w-20 bg-gray-900"></div>
+                    </div>
+                    <p class="text-gray-600 leading-relaxed max-w-md mx-auto md:mx-0 text-base md:text-lg">Tienda virtual especializada en accesorios que elevan el estilo y la protección de tu auto.</p>
+                    <a href="#catalogo" class="inline-block bg-gray-950 text-white px-10 py-4 rounded-full text-xs font-black uppercase tracking-widest hover:bg-gray-800 transition-all shadow-xl">Ver Catálogo</a>
+                </div>
+                <div class="flex justify-center md:justify-end order-1 md:order-2">
+                    <div class="relative w-full max-w-lg aspect-square">
+                        <div class="absolute inset-0 bg-gray-100 rounded-full scale-110 blur-3xl opacity-50"></div>
+                        <img src="img/logo.png" alt="AUTIQ" class="relative z-10 w-full h-full object-contain drop-shadow-2xl border border-gray-100 rounded-full p-4 bg-white">
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main id="catalogo" class="container mx-auto px-6 py-16 pt-16 scroll-mt-20">
+            <h2 class="text-2xl font-light text-gray-400 uppercase tracking-widest mb-12 border-b border-gray-100 pb-4">Nuestros Productos</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
+                <template x-for="product in productos" :key="product.id">
+                    <div class="group border border-gray-100 p-4 bg-white flex flex-col h-full hover:shadow-xl transition-shadow duration-300 rounded-xl">
+                        <div class="relative overflow-hidden aspect-square bg-gray-50 rounded-lg mb-4">
+                            <div class="swiper product-swiper h-full">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide cursor-zoom-in" @click="openModal = true; modalImg = product.image1">
+                                        <img :src="product.image1" class="w-full h-full object-contain p-2" loading="lazy">
+                                    </div>
+                                    <template x-if="product.image2">
+                                        <div class="swiper-slide cursor-zoom-in" @click="openModal = true; modalImg = product.image2">
+                                            <img :src="product.image2" class="w-full h-full object-contain p-2" loading="lazy">
+                                        </div>
+                                    </template>
+                                </div>
+                                <div class="swiper-button-next"></div>
+                                <div class="swiper-button-prev"></div>
+                                <div class="swiper-pagination"></div>
+                            </div>
+                        </div>
+                        <div class="grow flex flex-col px-1">
+                            <h3 class="font-bold text-sm text-gray-900 uppercase tracking-tighter" x-text="product.name"></h3>
+                            <p class="text-[11px] text-gray-500 mt-2 line-clamp-2 italic" x-text="product.description"></p>
+                        </div>
+                        <div class="mt-auto flex justify-between items-center border-t border-gray-50 pt-4">
+                            <span class="font-mono font-bold text-gray-950 text-lg" x-text="product.price"></span>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </main>
+
+        <footer class="bg-gray-950 text-gray-300 py-16 mt-16 border-t border-gray-800">
+            <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-12">
+            <div class="space-y-6">
+                <h4 class="text-xs uppercase font-black tracking-[0.2em] text-white">AUTIQ Accesorios</h4>
+                <p class="text-sm leading-relaxed">Tienda Virtual Copacabana Machado. <br>Personaliza, Protege y Destaca tu vehículo con nosotros.</p>
+
+                <div class="flex items-center gap-4 pt-2">
+                    <a href="https://instagram.com/auti.q" target="_blank" class="w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center hover:bg-pink-600 transition-colors text-white border border-gray-800">
+                        <i class="fa-brands fa-instagram text-xl"></i>
+                    </a>
+                    <a :href="whatsappUrl" target="_blank" class="w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center hover:bg-green-600 transition-colors text-white border border-gray-800">
+                        <i class="fa-brands fa-whatsapp text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        
+            <div class="space-y-4">
+                <h4 class="text-xs uppercase font-black tracking-[0.2em] text-white">Atención al cliente</h4>
+                <p class="text-sm italic">Lunes a Viernes: 9am - 6pm</p>
+                <p class="text-sm">Sábados y domingos: 9am - 3pm</p>
+                <p class="text-sm text-gray-500 mt-4">Punto de recogida en Copacabana (Bajo disponibilidad previa)</p>
+            </div>
+        
+            <div class="relative overflow-hidden rounded-xl border border-gray-800 h-48 bg-gray-900 shadow-lg">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.48451802881!2d-75.535457!3d6.331214600000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e442f651dfc068d%3A0xc3733830310ce7e2!2sAllegro%20Apartamentos!5e0!3m2!1ses!2sco!4v1774302293964!5m2!1ses!2sco" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                    class="w-full h-full" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+            <div class="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-gray-900 text-center">
+                <p class="text-[10px] uppercase tracking-[0.3em] text-gray-600">&copy; 2026 AUTIQ. Todos los derechos reservados.</p>
+            </div>
+        </footer>
+
+        <a :href="whatsappUrl" 
+           target="_blank" 
+           class="fixed bottom-8 right-8 z-[90] bg-green-500 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl hover:bg-green-600 transition-all hover:scale-110 animate-whatsapp">
+            <i class="fa-brands fa-whatsapp text-3xl"></i>
+        </a>
+
+        <template x-teleport="body">
+            <div x-show="openModal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-6" x-transition.opacity @keydown.escape.window="openModal = false" @click.self="openModal = false" style="display: none;">
+                <button @click="openModal = false" class="absolute top-5 right-5 text-white/50 hover:text-white text-4xl font-thin">&times;</button>
+                <div class="relative max-w-lg w-full mx-auto bg-white p-2 rounded-lg" @click.stop>
+                    <img :src="modalImg" class="w-full h-auto max-h-[75vh] object-contain rounded-sm">
+                    <div class="py-2 text-center border-t border-gray-50 mt-2">
+                        <p class="text-[10px] uppercase tracking-widest text-gray-400 font-bold">Vista Previa AUTIQ</p>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+    </div> 
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <script>
+        function appStorage() {
+            return {
+                openModal: false,
+                modalImg: '',
+                
+                // --- CONFIGURACIÓN WHATSAPP ---
+                whatsappPhone: '573206583971', // REEMPLAZA CON TU NÚMERO (Sin el +)
+                whatsappMessage: 'Hola AUTIQ! 🚘 Vi tu catálogo y me interesa obtener más información sobre un accesorio.',
+                
+                get whatsappUrl() {
+                    return `https://wa.me/${this.whatsappPhone}?text=${encodeURIComponent(this.whatsappMessage)}`;
+                },
+
+                productos: [
+                    { id: 1, name: 'CARBLOCK MILLONARIO', description: 'Elegancia y confort en un mismo Aroma. Edición Gold.', price: '$55.000', image1: 'img/carblock.png', image2: 'img/carblock1.png' },
+                    { id: 2, name: 'TAPA VALVULA DE LUJO HYUNDAI', description: 'Tapa de válvula con diseño exclusivo para vehículos HYUNDAI.', price: '$22.000', image1: 'img/HYUNDAI.png', image2: 'img/HyundaiCar.png' },
+                    { id: 3, name: 'TAPAS VÁLVULA SUZUKI + LLAVERO', description: 'Set completo de 4 tapas en negro mate con logo Suzuki.', price: '$22.000', image1: 'img/suzuki.1.png', image2: 'img/suzukiCar.png' },
+                    { id: 4, name: 'TAPAS VÁLVULA RENAULT + LLAVERO', description: 'Calidad premium para tu Renault.', price: '$22.000', image1: 'img/renault.png', image2: 'img/renaultCar.png' },
+                    { id: 5, name: 'TAPAS VÁLVULA MAZDA + LLAVERO', description: 'Personalización total para tu Mazda.', price: '$22.000', image1: 'img/Mazda.png', image2: 'img/MazdaCar.png' },
+                    { id: 6, name: 'TAPAS VÁLVULA FORD + LLAVERO', description: 'Resistencia y estilo para tu Ford.', price: '$22.000', image1: 'img/Ford.png', image2: 'img/FordCard.png' },
+                    { id: 7, name: 'TAPAS VÁLVULA BMW + LLAVERO', description: 'El detalle que tu BMW merece.', price: '$22.000', image1:'img/Bmw.1.png', image2:'img/BmwCar.png'},
+                    { id: 8, name: 'TAPAS VÁLVULA MERCEDES + LLAVERO', description: 'Lujo y distinción en cada detalle.', price: '$22.000', image1: 'img/mercedez.1.png', image2:'img/mercedezCar.png' },
+                    { id: 9, name: 'TAPAS VÁLVULA AUDI + LLAVERO', description: 'Diseño deportivo para tu Audi.', price: '$22.000', image1: 'img/audi.1.png', image2:'img/audiCar.png' }
+                ],
+
+                initSwipers() {
+                    this.$nextTick(() => {
+                        document.querySelectorAll('.product-swiper').forEach(el => {
+                            new Swiper(el, {
+                                spaceBetween: 10,
+                                grabCursor: true,
+                                pagination: { el: el.querySelector('.swiper-pagination'), clickable: true },
+                                navigation: { nextEl: el.querySelector('.swiper-button-next'), prevEl: el.querySelector('.swiper-button-prev') },
+                            });
+                        });
+                    });
+                }
+            }
+        }
+    </script>
+</body>
+</html>
