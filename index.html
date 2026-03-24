@@ -46,21 +46,32 @@
 
         <header class="bg-white flex items-center border-b border-gray-100 min-h-[calc(100vh-80px)]">
             <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center w-full py-12">
+                
                 <div class="space-y-8 order-2 md:order-1 text-center md:text-left">
-                    <h1 class="text-5xl md:text-7xl font-black tracking-tighter text-gray-950 leading-[0.9]">Accesorios para vehículo</h1>
+                    <h1 class="text-5xl md:text-7xl font-black tracking-tighter text-gray-950 leading-[0.9]">
+                        Accesorios para vehículo
+                    </h1>
                     <div class="space-y-2 flex flex-col items-center md:items-start">
-                        <p class="text-sm md:text-lg text-autiq font-bold uppercase tracking-[0.3em]">PERSONALIZA | PROTEGE | DESTACA</p>
+                        <p class="text-sm md:text-lg text-autiq font-bold uppercase tracking-[0.3em]">
+                            PERSONALIZA | PROTEGE | DESTACA
+                        </p>
                         <div class="h-1 w-20 bg-gray-900"></div>
                     </div>
-                    <p class="text-gray-600 leading-relaxed max-w-md mx-auto md:mx-0 text-base md:text-lg">Tienda virtual especializada en accesorios que elevan el estilo y la protección de tu auto.</p>
-                    <a href="#catalogo" class="inline-block bg-gray-950 text-white px-10 py-4 rounded-full text-xs font-black uppercase tracking-widest hover:bg-gray-800 transition-all shadow-xl">Ver Catálogo</a>
+                    <p class="text-gray-600 leading-relaxed max-w-md mx-auto md:mx-0 text-base md:text-lg">
+                        Tienda virtual especializada en accesorios que elevan el estilo y la protección de tu auto.
+                    </p>
+                    <a href="#catalogo" class="inline-block bg-gray-950 text-white px-10 py-4 rounded-full text-xs font-black uppercase tracking-widest hover:bg-gray-800 transition-all shadow-xl">
+                        Ver Catálogo
+                    </a>
                 </div>
+
                 <div class="flex justify-center md:justify-end order-1 md:order-2">
-                    <div class="relative w-full max-w-lg aspect-square">
+                    <div class="relative w-full max-w-[280px] md:max-w-lg aspect-square">
                         <div class="absolute inset-0 bg-gray-100 rounded-full scale-110 blur-3xl opacity-50"></div>
-                        <img src="img/logo.png" alt="AUTIQ" class="relative z-10 w-full h-full object-contain drop-shadow-2xl border border-gray-100 rounded-full p-4 bg-white">
+                        <img src="img/logo.png" alt="AUTIQ" class="relative z-10 w-full h-full object-contain drop-shadow-2xl border border-gray-300 rounded-full p-2 bg-white">
                     </div>
                 </div>
+
             </div>
         </header>
 
@@ -123,7 +134,7 @@
             
                 <div class="relative overflow-hidden rounded-xl border border-gray-800 h-48 bg-gray-900 shadow-lg">
                     <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15860.835474328227!2d-75.51869375!3d6.3669931!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e442f9a65f97337%3A0x8686e00cf9a0f4a8!2sCopacabana%2C%20Antioquia!5e0!3m2!1ses!2sco!4v1700000000000!5m2!1ses!2sco" 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.48451802881!2d-75.535457!3d6.331214600000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e442f651dfc068d%3A0xc3733830310ce7e2!2sAllegro%20Apartamentos!5e0!3m2!1ses!2sco!4v1774302293964!5m2!1ses!2sco"
                         class="w-full h-full" 
                         style="border:0;" 
                         allowfullscreen="" 
@@ -166,7 +177,7 @@
                 openModal: false,
                 modalImg: '',
                 whatsappPhone: '573206583971',
-                whatsappMessage: 'Hola AUTIQ! 🚘 Vi tu catálogo y me interesa obtener más información sobre un accesorio.',
+                whatsappMessage: 'Hola AUTIQ! Vi tu catálogo y me interesa obtener más información sobre un accesorio.',
                 
                 get whatsappUrl() {
                     return `https://wa.me/${this.whatsappPhone}?text=${encodeURIComponent(this.whatsappMessage)}`;
