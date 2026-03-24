@@ -66,9 +66,9 @@
                 </div>
 
                 <div class="flex justify-center md:justify-end order-1 md:order-2">
-                    <div class="relative w-full max-w-[280px] md:max-w-lg aspect-square">
+                    <div class="relative w-full max-w-[260px] md:max-w-sm aspect-square">
                         <div class="absolute inset-0 bg-gray-100 rounded-full scale-110 blur-3xl opacity-50"></div>
-                        <img src="img/logo.png" alt="AUTIQ" class="relative z-10 w-full h-full object-contain drop-shadow-2xl border border-gray-300 rounded-full p-2 bg-white">
+                        <img src="img/logo.png" alt="AUTIQ" class="relative z-10 w-full h-full object-contain drop-shadow-2xl border border-gray-300 rounded-full bg-white">
                     </div>
                 </div>
 
@@ -79,7 +79,7 @@
             <h2 class="text-2xl font-light text-gray-400 uppercase tracking-widest mb-12 border-b border-gray-100 pb-4">Nuestros Productos</h2>
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
                 <template x-for="product in productos" :key="product.id">
-                    <div class="group border border-gray-100 p-4 bg-white flex flex-col h-full hover:shadow-xl transition-shadow duration-300 rounded-xl">
+                    <div class="group border border-gray-300 p-4 bg-white flex flex-col h-full hover:shadow-xl transition-shadow-2xl duration-300 rounded-xl">
                         <div class="relative overflow-hidden aspect-square bg-gray-50 rounded-lg mb-4">
                             <div class="swiper product-swiper h-full">
                                 <div class="swiper-wrapper">
@@ -185,8 +185,8 @@
 
                 // REVISIÓN DE RUTAS (Ojo con Mayúsculas)
                 productos: [
-                    { id: 1, name: 'CARBLOCK MILLONARIO', description: 'Elegancia y confort en un mismo Aroma. Edición Gold.', price: '$55.000', image1: 'img/Carblock.png', image2: 'img/Carblock1.png' },
-                    { id: 2, name: 'TAPA VALVULA DE LUJO HYUNDAI', description: 'Tapa de válvula con diseño exclusivo para vehículos HYUNDAI.', price: '$22.000', image1: 'img/HYUNDAI.png', image2: 'img/HyundaiCar.png' },
+                    { id: 1, name: 'CARBLOCK', description: 'Elegancia y confort en un mismo Aroma. Edición Gold.', price: '$55.000', image1: 'img/Carblock.png', image2: 'img/Carblock1.png' },
+                    { id: 2, name: 'TAPA VALVULA HYUNDAI + LLAVERO', description: 'Tapa de válvula con diseño exclusivo para vehículos HYUNDAI.', price: '$22.000', image1: 'img/HYUNDAI.png', image2: 'img/HyundaiCar.png' },
                     { id: 3, name: 'TAPAS VÁLVULA SUZUKI + LLAVERO', description: 'Set completo de 4 tapas en negro mate con logo Suzuki.', price: '$22.000', image1: 'img/SUZUKI.1.png', image2: 'img/SuzukiCar.png' },
                     { id: 4, name: 'TAPAS VÁLVULA RENAULT + LLAVERO', description: 'Calidad premium para tu Renault.', price: '$22.000', image1: 'img/RENAULT.png', image2: 'img/RenaultCar.png' },
                     { id: 5, name: 'TAPAS VÁLVULA MAZDA + LLAVERO', description: 'Personalización total para tu Mazda.', price: '$22.000', image1: 'img/MAZDA.png', image2: 'img/MazdaCar.png' },
