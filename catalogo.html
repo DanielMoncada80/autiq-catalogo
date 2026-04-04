@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo | AUTIQ Accesorios Premium</title>
+  <meta name="description" content="Catálogo de tapas de válvula de lujo para vehículos. Audi, BMW, Ford, Mazda y más.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #f8f8f8; color: #111; overflow-x: hidden; }
+    a { text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ── PROGRESS BAR ── */
+    #progress-bar { position: fixed; top: 0; left: 0; height: 2px; width: 0; background: linear-gradient(90deg, #dc2626, #f87171); z-index: 9999; transition: width .1s linear; }
+
+    /* ── NAVBAR ── */
+    #navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 72px; display: flex; align-items: center; padding: 0 2.5rem; background: #fff; border-bottom: 1px solid #f0f0f0; box-shadow: 0 1px 20px rgba(0,0,0,.06); transition: all .4s; }
+    .nav-inner { width: 100%; max-width: 1280px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: #111; letter-spacing: .05em; }
+    .nav-logo span { color: #ef4444; }
+    .nav-links { display: flex; align-items: center; gap: 2.5rem; }
+    .nav-links a { font-size: 10px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: #374151; transition: color .2s; }
+    .nav-links a:hover { color: #ef4444; }
+    .nav-links a.active { color: #ef4444; text-decoration: underline; text-underline-offset: 4px; }
+    .nav-wa { display: inline-flex; align-items: center; gap: 8px; background: #22c55e; color: #fff !important; padding: 9px 20px; border-radius: 999px; font-size: 10px !important; font-weight: 700 !important; transition: background .3s; box-shadow: 0 2px 12px rgba(34,197,94,.35); }
+    .nav-wa:hover { background: #16a34a !important; color: #fff !important; }
+    .hamburger { display: none; background: none; border: none; color: #111; font-size: 24px; cursor: pointer; }
+
+    /* Mobile menu */
+    #mobile-menu { display: none; position: fixed; inset: 0; z-index: 200; background: #0d0d0d; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; }
+    #mobile-menu.open { display: flex; }
+    #mobile-menu a { font-size: 2.5rem; font-weight: 300; color: rgba(255,255,255,.8); text-transform: uppercase; letter-spacing: .15em; transition: color .2s; }
+    #mobile-menu a:hover { color: #fff; }
+    #mobile-menu .close-btn { position: absolute; top: 24px; right: 28px; background: none; border: none; color: rgba(255,255,255,.5); font-size: 32px; cursor: pointer; }
+    #mobile-menu .mob-logo { position: absolute; top: 20px; left: 24px; font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: #fff; }
+    #mobile-menu .mob-logo span { color: #ef4444; }
+
+    /* ── HERO CATÁLOGO ── */
+    .cat-hero {
+      background: #0d0d0d; padding: 9rem 2rem 5rem; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .cat-hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; }
+    .cat-hero-glow { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 600px; height: 200px; border-radius: 50%; background: radial-gradient(ellipse, rgba(220,38,38,.15) 0%, transparent 70%); pointer-events: none; }
+    .cat-pill { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 20px; padding: 8px 18px; border-radius: 999px; border: 1px solid rgba(220,38,38,.3); background: rgba(220,38,38,.06); color: #f87171; font-size: 10px; font-weight: 700; letter-spacing: .25em; text-transform: uppercase; }
+    .pill-dot { width: 6px; height: 6px; border-radius: 50%; background: #ef4444; animation: pulse 1.5s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)} }
+    .cat-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3.5rem, 10vw, 7rem); color: #fff; line-height: 1; letter-spacing: -.01em; margin-bottom: 16px; }
+    .cat-sub { color: rgba(255,255,255,.4); font-size: 14px; max-width: 420px; margin: 0 auto; line-height: 1.7; }
+
+    /* ── GRID PRODUCTOS ── */
+    .catalog-wrap { max-width: 1280px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+    .cat-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2.5rem; }
+    .cat-header-left { display: flex; align-items: center; gap: 12px; }
+    .red-bar { width: 4px; height: 32px; background: #dc2626; border-radius: 999px; }
+    .cat-count { font-size: 11px; font-weight: 600; color: #9ca3af; }
+
+    /* Grid */
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+    .pcard {
+      background: #fff; border-radius: 20px; overflow: hidden;
+      border: 1px solid #f0f0f0; display: flex; flex-direction: column;
+      transition: transform .4s cubic-bezier(.34,1.56,.64,1), box-shadow .4s ease, border-color .3s;
+      opacity: 0; transform: translateY(20px);
+    }
+    .pcard.visible { opacity: 1; transform: translateY(0); }
+    .pcard:hover { transform: translateY(-8px); box-shadow: 0 24px 60px rgba(0,0,0,.1); border-color: #e5e5e5; }
+
+    /* Imagen */
+    .pcard-img { position: relative; aspect-ratio: 1; background: #111; overflow: hidden; cursor: zoom-in; }
+    .pcard-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease, opacity .2s ease; }
+    .pcard:hover .pcard-img img { transform: scale(1.06); }
+    .img-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0); display: flex; align-items: center; justify-content: center; transition: background .3s; }
+    .pcard:hover .img-overlay { background: rgba(0,0,0,.15); }
+    .zoom-icon { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,.9); display: flex; align-items: center; justify-content: center; font-size: 14px; color: #111; opacity: 0; transform: scale(.8); transition: all .3s; }
+    .pcard:hover .zoom-icon { opacity: 1; transform: scale(1); }
+
+    /* Thumbnail 2da imagen */
+    .img-dots { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); display: flex; gap: 4px; }
+    .img-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,.4); cursor: pointer; transition: all .2s; }
+    .img-dot.active { background: #fff; width: 16px; border-radius: 4px; }
+
+    /* Info */
+    .pcard-body { padding: 18px; flex: 1; display: flex; flex-direction: column; }
+    .pcard-name { font-size: 12px; font-weight: 900; color: #111; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 6px; line-height: 1.3; }
+    .pcard-desc { font-size: 11px; color: #9ca3af; line-height: 1.6; flex: 1; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .pcard-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 16px; padding-top: 14px; border-top: 1px solid #f4f4f4; gap: 8px; }
+    .pcard-price { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: #111; letter-spacing: .02em; }
+    .wa-btn { display: inline-flex; align-items: center; gap: 6px; background: #22c55e; color: #fff; padding: 9px 14px; border-radius: 999px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .1em; transition: all .3s; white-space: nowrap; }
+    .wa-btn:hover { background: #16a34a; box-shadow: 0 0 20px rgba(34,197,94,.4); color: #fff; transform: translateY(-1px); }
+
+    /* Estado vacío */
+    .empty { text-align: center; padding: 6rem 2rem; }
+    .empty-icon { width: 80px; height: 80px; border-radius: 50%; background: #f4f4f4; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; font-size: 28px; color: #d1d5db; }
+
+    /* ── MODAL ── */
+    #modal { display: none; position: fixed; inset: 0; z-index: 500; background: rgba(0,0,0,.95); align-items: center; justify-content: center; padding: 2rem; flex-direction: column; }
+    #modal.open { display: flex; }
+    .modal-header { position: absolute; top: 0; left: 0; right: 0; padding: 20px 28px; display: flex; align-items: center; justify-content: space-between; }
+    .modal-name { color: #fff; font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: .1em; }
+    .modal-close { width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255,255,255,.2); background: none; color: #fff; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .2s; }
+    .modal-close:hover { background: rgba(255,255,255,.1); }
+    .modal-img-wrap { max-width: 90vw; max-height: 75vh; position: relative; display: flex; align-items: center; justify-content: center; }
+    #modal-img { max-width: 100%; max-height: 75vh; object-fit: contain; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,.5); border: 1px solid rgba(255,255,255,.08); transition: opacity .2s ease; }
+    .modal-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,.25); background: rgba(0,0,0,.5); color: #fff; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .2s, border-color .2s; z-index: 10; backdrop-filter: blur(4px); }
+    .modal-arrow:hover { background: rgba(255,255,255,.15); border-color: rgba(255,255,255,.5); }
+    .modal-arrow.prev { left: -56px; }
+    .modal-arrow.next { right: -56px; }
+    .modal-arrow.hidden { opacity: 0; pointer-events: none; }
+    .modal-dots { display: flex; gap: 6px; margin-top: 18px; }
+    .modal-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,.3); cursor: pointer; transition: all .2s; }
+    .modal-dot.active { background: #fff; width: 18px; border-radius: 4px; }
+    .modal-footer { position: absolute; bottom: 28px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+    .modal-wa { display: inline-flex; align-items: center; gap: 8px; background: #22c55e; color: #fff; padding: 12px 28px; border-radius: 999px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .15em; transition: all .3s; }
+    .modal-wa:hover { background: #16a34a; color: #fff; transform: translateY(-2px); }
+    @media(max-width:600px){
+      .modal-arrow.prev { left: 8px; }
+      .modal-arrow.next { right: 8px; }
+    }
+
+    /* ── FOOTER ── */
+    footer { background: #0a0a0a; color: #6b7280; padding: 60px 2rem 28px; }
+    .footer-inner { max-width: 1280px; margin: 0 auto; }
+    .footer-mini { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.5rem; padding-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,.05); margin-bottom: 2rem; }
+    .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: #fff; letter-spacing: .05em; }
+    .footer-logo span { color: #ef4444; }
+    .footer-links-mini { display: flex; gap: 2rem; }
+    .footer-links-mini a { font-size: 11px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: #6b7280; transition: color .2s; }
+    .footer-links-mini a:hover { color: #fff; }
+    .footer-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.2); }
+    .dot-green { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #22c55e; margin-right: 8px; animation: pulse 1.5s ease-in-out infinite; }
+
+    /* WA FLOAT */
+    .wa-float { position: fixed; bottom: 28px; right: 28px; z-index: 999; width: 56px; height: 56px; border-radius: 50%; background: #22c55e; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 24px; text-decoration: none; box-shadow: 0 4px 24px rgba(34,197,94,.45); transition: all .3s; }
+    .wa-float:hover { background: #16a34a; transform: scale(1.12); color: #fff; }
+    .wa-tip { position: absolute; right: 68px; background: #111; color: #fff; font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: 8px 14px; border-radius: 8px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .3s; }
+    .wa-float:hover .wa-tip { opacity: 1; }
+
+    @media(max-width:768px){
+      .nav-links { display: none; }
+      .hamburger { display: block; }
+      .products-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    }
+    @media(max-width:400px){
+      .products-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="progress-bar"></div>
+
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">AUTIQ<span>.</span></a>
+      <div class="nav-links">
+        <a href="index.html">Inicio</a>
+        <a href="catalogo.html" class="active">Catálogo</a>
+        <a href="https://wa.me/573206583971" target="_blank" class="nav-wa">
+          <i class="fa-brands fa-whatsapp"></i> WhatsApp
+        </a>
+      </div>
+      <button class="hamburger" onclick="document.getElementById('mobile-menu').classList.toggle('open')">
+        <i class="fa-solid fa-bars-staggered"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div id="mobile-menu">
+    <button class="close-btn" onclick="document.getElementById('mobile-menu').classList.remove('open')">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <span class="mob-logo">AUTIQ<span>.</span></span>
+    <a href="index.html" onclick="document.getElementById('mobile-menu').classList.remove('open')">Inicio</a>
+    <a href="catalogo.html" onclick="document.getElementById('mobile-menu').classList.remove('open')">Catálogo</a>
+    <a href="https://wa.me/573206583971" target="_blank" style="background:#22c55e;color:#fff;padding:14px 32px;border-radius:999px;font-size:1rem;font-weight:700;">
+      <i class="fa-brands fa-whatsapp"></i> WhatsApp
+    </a>
+  </div>
+
+  <!-- HERO -->
+  <section class="cat-hero">
+    <div class="cat-hero-grid"></div>
+    <div class="cat-hero-glow"></div>
+    <div style="position:relative;z-index:1;">
+      <div class="cat-pill">
+        <span class="pill-dot"></span>
+        <span id="hero-count">9</span> productos disponibles
+      </div>
+      <h1 class="cat-title">CATÁLOGO</h1>
+      <p class="cat-sub">Explora nuestra colección de accesorios premium para vehículos. Encuentra el complemento perfecto para tu auto.</p>
+    </div>
+  </section>
+
+  <!-- GRID DE PRODUCTOS -->
+  <div class="catalog-wrap">
+    <div class="cat-header">
+      <div class="cat-header-left">
+        <div class="red-bar"></div>
+        <span style="font-size:13px;font-weight:900;color:#111;text-transform:uppercase;letter-spacing:.08em;">Todos los Productos</span>
+      </div>
+      <span class="cat-count" id="total-count">9 artículos</span>
+    </div>
+    <div class="products-grid" id="products-grid">
+      <!-- Skeleton mientras carga -->
+      <div style="aspect-ratio:1;background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:20px;"></div>
+      <div style="aspect-ratio:1;background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.5s infinite .2s;border-radius:20px;"></div>
+      <div style="aspect-ratio:1;background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.5s infinite .4s;border-radius:20px;"></div>
+      <div style="aspect-ratio:1;background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.5s infinite .6s;border-radius:20px;"></div>
+    </div>
+  </div>
+
+  <!-- MODAL -->
+  <div id="modal" onclick="closeModal(event)">
+    <div class="modal-header">
+      <span class="modal-name" id="modal-name"></span>
+      <button class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-img-wrap">
+      <button class="modal-arrow prev" id="modal-prev" onclick="modalNav(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+      <img id="modal-img" src="" alt="">
+      <button class="modal-arrow next" id="modal-next" onclick="modalNav(1)"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+    <div class="modal-dots" id="modal-dots"></div>
+    <div class="modal-footer">
+      <a id="modal-wa-link" href="#" target="_blank" class="modal-wa">
+        <i class="fa-brands fa-whatsapp" style="font-size:16px;"></i>
+        Consultar disponibilidad
+      </a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-mini">
+        <div class="footer-logo">AUTIQ<span>.</span></div>
+        <div class="footer-links-mini">
+          <a href="index.html">Inicio</a>
+          <a href="catalogo.html">Catálogo</a>
+          <a href="https://wa.me/573206583971" target="_blank">WhatsApp</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 AUTIQ Accesorios. Todos los derechos reservados.</span>
+        <span><span class="dot-green"></span> Tienda activa</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WA FLOAT -->
+  <a href="https://wa.me/573206583971?text=Hola!%20Quisiera%20información%20sobre%20accesorios." target="_blank" class="wa-float">
+    <i class="fa-brands fa-whatsapp"></i>
+    <span class="wa-tip">¡Escríbenos!</span>
+  </a>
+
+  <style>
+    @keyframes shimmer { from{background-position:200% 0} to{background-position:-200% 0} }
+  </style>
+
+  <script>
+    // ── Scroll / Progress ──
+    window.addEventListener('scroll', () => {
+      const pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+      document.getElementById('progress-bar').style.width = pct + '%';
+    }, {passive:true});
+
+    // ── Cambiar imagen de una card (con fade) ──
+    function setCardImg(cardImg, idx) {
+      const img = cardImg.querySelector('img');
+      img.style.opacity = '0';
+      setTimeout(() => {
+        img.src = cardImg._imgs[idx];
+        img.style.opacity = '1';
+      }, 150);
+      cardImg._idx = idx;
+      cardImg.querySelectorAll('.img-dot').forEach(d => {
+        d.classList.toggle('active', +d.dataset.idx === idx);
+      });
+    }
+
+    // ── Cargar y renderizar productos desde JSON ──
+    fetch('productos.json')
+      .then(r => r.json())
+      .then(products => {
+        const grid = document.getElementById('products-grid');
+        grid.innerHTML = '';
+
+        document.getElementById('hero-count').textContent = products.length;
+        document.getElementById('total-count').textContent = products.length + ' artículos';
+
+        products.forEach((p, i) => {
+          const imgs = [p.imagen, p.imagen2].filter(Boolean);
+
+          const card = document.createElement('div');
+          card.className = 'pcard';
+          card.style.transitionDelay = (i * 60) + 'ms';
+
+          const waMsg = encodeURIComponent(`Hola! Estoy interesado en: ${p.nombre} (${p.precio}). ¿Está disponible?`);
+          const waUrl = `https://wa.me/573206583971?text=${waMsg}`;
+
+          const dotsHtml = imgs.length > 1 ? `
+            <div class="img-dots">
+              ${imgs.map((_, di) => `<div class="img-dot ${di===0?'active':''}" data-idx="${di}"></div>`).join('')}
+            </div>` : '';
+
+          card.innerHTML = `
+            <div class="pcard-img">
+              <img src="${imgs[0]}" alt="${p.nombre}" loading="lazy">
+              <div class="img-overlay">
+                <div class="zoom-icon"><i class="fa-solid fa-expand"></i></div>
+              </div>
+              ${dotsHtml}
+            </div>
+            <div class="pcard-body">
+              <div class="pcard-name">${p.nombre}</div>
+              <p class="pcard-desc">${p.descripcion}</p>
+              <div class="pcard-footer">
+                <span class="pcard-price">${p.precio}</span>
+                <a href="${waUrl}" target="_blank" class="wa-btn">
+                  <i class="fa-brands fa-whatsapp" style="font-size:13px;"></i>
+                  Pedir
+                </a>
+              </div>
+            </div>`;
+
+          grid.appendChild(card);
+
+          // Estado de la card
+          const cardImg = card.querySelector('.pcard-img');
+          cardImg._imgs = imgs;
+          cardImg._idx = 0;
+
+          // ── Dots: click ──
+          cardImg.querySelectorAll('.img-dot').forEach(dot => {
+            dot.addEventListener('click', e => {
+              e.stopPropagation();
+              setCardImg(cardImg, +dot.dataset.idx);
+            });
+          });
+
+          // ── Click en imagen: abrir modal con imagen actual ──
+          cardImg.addEventListener('click', e => {
+            if (!e.target.classList.contains('img-dot')) {
+              openModal(cardImg._imgs[cardImg._idx], p.nombre, waUrl, imgs);
+            }
+          });
+
+          // ── Swipe táctil ──
+          if (imgs.length > 1) {
+            let touchStartX = 0;
+            let touchStartY = 0;
+            let dragging = false;
+
+            cardImg.addEventListener('touchstart', e => {
+              touchStartX = e.touches[0].clientX;
+              touchStartY = e.touches[0].clientY;
+              dragging = false;
+            }, {passive:true});
+
+            cardImg.addEventListener('touchmove', e => {
+              const dx = Math.abs(e.touches[0].clientX - touchStartX);
+              const dy = Math.abs(e.touches[0].clientY - touchStartY);
+              if (dx > dy && dx > 8) dragging = true;
+            }, {passive:true});
+
+            cardImg.addEventListener('touchend', e => {
+              if (!dragging) return;
+              const dx = e.changedTouches[0].clientX - touchStartX;
+              if (Math.abs(dx) > 40) {
+                const dir = dx < 0 ? 1 : -1;
+                const newIdx = (cardImg._idx + dir + imgs.length) % imgs.length;
+                setCardImg(cardImg, newIdx);
+              }
+              dragging = false;
+            }, {passive:true});
+          }
+        });
+
+        // Animación de entrada escalonada
+        const cards = document.querySelectorAll('.pcard');
+        const obs = new IntersectionObserver(entries => {
+          entries.forEach(e => {
+            if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+          });
+        }, { threshold: 0.05 });
+        cards.forEach(c => obs.observe(c));
+      })
+      .catch(() => {
+        document.getElementById('products-grid').innerHTML = `
+          <div style="grid-column:1/-1;" class="empty">
+            <div class="empty-icon"><i class="fa-solid fa-box-open"></i></div>
+            <h3 style="font-size:18px;font-weight:900;color:#9ca3af;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;">Sin productos</h3>
+            <p style="color:#9ca3af;font-size:14px;">No se pudo cargar el catálogo. Por favor intenta más tarde.</p>
+          </div>`;
+      });
+
+    // ── Modal ──
+    let _mImgs = [], _mIdx = 0, _mWaUrl = '';
+
+    function openModal(src, name, waUrl, imgs) {
+      _mImgs = imgs || [src];
+      _mIdx = _mImgs.indexOf(src);
+      if (_mIdx < 0) _mIdx = 0;
+      _mWaUrl = waUrl;
+
+      document.getElementById('modal-name').textContent = name;
+      document.getElementById('modal-wa-link').href = waUrl;
+      _renderModal();
+      document.getElementById('modal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function _renderModal() {
+      const img = document.getElementById('modal-img');
+      img.src = _mImgs[_mIdx];
+
+      // Flechas
+      const hasMult = _mImgs.length > 1;
+      document.getElementById('modal-prev').classList.toggle('hidden', !hasMult);
+      document.getElementById('modal-next').classList.toggle('hidden', !hasMult);
+
+      // Dots
+      const dotsEl = document.getElementById('modal-dots');
+      dotsEl.innerHTML = hasMult
+        ? _mImgs.map((_, i) => `<div class="modal-dot ${i===_mIdx?'active':''}" onclick="modalGoTo(${i})"></div>`).join('')
+        : '';
+    }
+
+    function modalNav(dir) {
+      _mIdx = (_mIdx + dir + _mImgs.length) % _mImgs.length;
+      const img = document.getElementById('modal-img');
+      img.style.opacity = '0';
+      setTimeout(() => { img.src = _mImgs[_mIdx]; img.style.opacity = '1'; }, 150);
+      document.getElementById('modal-dots').querySelectorAll('.modal-dot').forEach((d, i) => {
+        d.classList.toggle('active', i === _mIdx);
+      });
+    }
+
+    function modalGoTo(idx) {
+      if (idx === _mIdx) return;
+      _mIdx = idx;
+      const img = document.getElementById('modal-img');
+      img.style.opacity = '0';
+      setTimeout(() => { img.src = _mImgs[_mIdx]; img.style.opacity = '1'; }, 150);
+      document.getElementById('modal-dots').querySelectorAll('.modal-dot').forEach((d, i) => {
+        d.classList.toggle('active', i === _mIdx);
+      });
+    }
+
+    function closeModal(e) {
+      if (!e || e.target === document.getElementById('modal') || e.currentTarget === document.querySelector('.modal-close')) {
+        document.getElementById('modal').classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    }
+    document.addEventListener('keydown', e => {
+      if (!document.getElementById('modal').classList.contains('open')) return;
+      if (e.key === 'Escape') closeModal();
+      if (e.key === 'ArrowLeft') modalNav(-1);
+      if (e.key === 'ArrowRight') modalNav(1);
+    });
+  </script>
+</body>
+</html>

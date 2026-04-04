@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "nombre": "Tapa Válvula de Lujo Audi",
+    "descripcion": "Tapa de válvula con diseño exclusivo para vehículos Audi. Acabado premium en metal.",
+    "precio": "$ 22.000",
+    "imagen": "images/productos/AUDI.1.png",
+    "imagen2": "images/productos/AUDI.png"
+  },
+  {
+    "id": 2,
+    "nombre": "Tapa Válvula de Lujo BMW",
+    "descripcion": "Tapa de válvula con diseño exclusivo para vehículos BMW. Acabado premium en metal.",
+    "precio": "$ 22.000",
+    "imagen": "images/productos/BMW.1.png",
+    "imagen2": "images/productos/BMW.png"
+  },
+  {
+    "id": 3,
+    "nombre": "Tapa Válvula de Lujo Mercedes Benz",
+    "descripcion": "Tapa de válvula con diseño exclusivo para vehículos Mercedes Benz. Acabado premium en metal.",
+    "precio": "$ 22.000",
+    "imagen": "images/productos/MERCEDEZ.1.png",
+    "imagen2": "images/productos/MERCEDEZ.png"
+  },
+  {
+    "id": 4,
+    "nombre": "Tapa Válvula de Lujo Ford",
+    "descripcion": "Tapa de válvula con diseño exclusivo para vehículos Ford. Acabado premium en metal.",
+    "precio": "$ 22.000",
+    "imagen": "images/productos/FORD.1.png",
+    "imagen2": "images/productos/FORD.png"
+  },
+  {
+    "id": 5,
+    "nombre": "Tapa Válvula de Lujo Renault",
+    "descripcion": "Tapa de válvula con diseño exclusivo para vehículos Renault. Acabado premium en metal.",
+    "precio": "$ 22.000",
+    "imagen": "images/productos/RENAULT.1.png",
+    "imagen2": "images/productos/RENAULT.png"
+  },
+  {
+    "id": 6,
+    "nombre": "Tapa Válvula de Lujo Mazda",
+    "descripcion": "Tapa de válvula con diseño exclusivo para vehículos Mazda. Acabado premium en metal.",
+    "precio": "$ 22.000",
+    "imagen": "images/productos/MAZDA.1.png",
+    "imagen2": "images/productos/MAZDA.png"
+  },
+  {
+    "id": 7,
+    "nombre": "Tapa Válvula de Lujo Volkswagen",
+    "descripcion": "Tapa de válvula con diseño exclusivo para vehículos Volkswagen. Acabado premium en metal.",
+    "precio": "$ 22.000",
+    "imagen": "images/productos/WOLSK.1.png",
+    "imagen2": "images/productos/WOLSK.png"
+  },
+  {
+    "id": 8,
+    "nombre": "Tapa Válvula de Lujo Hyundai",
+    "descripcion": "Tapa de válvula con diseño exclusivo para vehículos Hyundai. Acabado premium en metal.",
+    "precio": "$ 22.000",
+    "imagen": "images/productos/HYUNDAI.1.png",
+    "imagen2": "images/productos/HYUNDAI.png"
+  },
+  {
+    "id": 9,
+    "nombre": "Tapa Válvula de Lujo Suzuki",
+    "descripcion": "Tapa de válvula con diseño exclusivo para vehículos Suzuki. Acabado premium en metal.",
+    "precio": "$ 22.000",
+    "imagen": "images/productos/SUZUKI.1.png",
+    "imagen2": "images/productos/SUZUKI.png"
+  }
+]

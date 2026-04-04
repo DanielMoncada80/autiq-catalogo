@@ -1,216 +1,527 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AUTIQ - Accesorios para Vehículo | Copacabana</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AUTIQ | Accesorios Premium para Vehículos</title>
+  <meta name="description" content="Tienda virtual de accesorios premium para vehículos en Copacabana. Tapas de válvula de lujo, calidad garantizada.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #fff; color: #111; overflow-x: hidden; }
+    a { text-decoration: none; }
+    img { display: block; max-width: 100%; }
 
-    <style>
-        [x-cloak] { display: none !important; }
-        html { scroll-behavior: smooth; }
-        /* Animación para el botón de WhatsApp */
-        @keyframes pulse-green {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
-            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
-        }
-        .animate-whatsapp { animation: pulse-green 2s infinite; }
-    </style>
+    /* ── PROGRESS BAR ── */
+    #progress-bar {
+      position: fixed; top: 0; left: 0; height: 2px; width: 0;
+      background: linear-gradient(90deg, #dc2626, #f87171);
+      z-index: 9999; transition: width .1s linear;
+    }
 
-    <script>
-        tailwind.config = {
-            theme: { extend: { colors: { autiq: '#d32f2f' } } }
-        }
-    </script>
+    /* ── NAVBAR ── */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 72px; display: flex; align-items: center;
+      padding: 0 2.5rem;
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      transition: background .4s ease, border-color .4s ease, backdrop-filter .4s ease;
+    }
+    #navbar.scrolled {
+      background: rgba(10,10,10,0.92);
+      border-color: rgba(255,255,255,0.06);
+      backdrop-filter: blur(20px);
+    }
+    .nav-inner { width: 100%; max-width: 1280px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif; font-size: 2rem;
+      color: #fff; letter-spacing: .05em;
+    }
+    .nav-logo span { color: #ef4444; }
+    .nav-links { display: flex; align-items: center; gap: 2.5rem; }
+    .nav-links a { font-size: 10px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.7); transition: color .2s; }
+    .nav-links a:hover, .nav-links a.active { color: #ef4444; }
+    .nav-links a.active { text-decoration: underline; text-underline-offset: 4px; }
+    .nav-wa {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #22c55e; color: #fff !important;
+      padding: 9px 20px; border-radius: 999px;
+      font-size: 10px !important; font-weight: 700 !important;
+      transition: background .3s, box-shadow .3s !important;
+      box-shadow: 0 2px 12px rgba(34,197,94,.35);
+    }
+    .nav-wa:hover { background: #16a34a !important; color: #fff !important; }
+    .hamburger { display: none; background: none; border: none; color: #fff; font-size: 24px; cursor: pointer; }
+
+    /* Mobile menu */
+    #mobile-menu {
+      display: none; position: fixed; inset: 0; z-index: 200;
+      background: #0d0d0d; flex-direction: column;
+      align-items: center; justify-content: center; gap: 2.5rem;
+    }
+    #mobile-menu.open { display: flex; }
+    #mobile-menu a { font-size: 2.5rem; font-weight: 300; color: rgba(255,255,255,.8); text-transform: uppercase; letter-spacing: .15em; transition: color .2s; }
+    #mobile-menu a:hover { color: #fff; }
+    #mobile-menu .close-btn { position: absolute; top: 24px; right: 28px; background: none; border: none; color: rgba(255,255,255,.5); font-size: 32px; cursor: pointer; }
+    #mobile-menu .mob-logo { position: absolute; top: 20px; left: 24px; font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: #fff; }
+    #mobile-menu .mob-logo span { color: #ef4444; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh; background: #0d0d0d;
+      display: flex; align-items: center;
+      position: relative; overflow: hidden; padding-top: 72px;
+    }
+    .hero-grid {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image: linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: 50px 50px;
+    }
+    .hero-glow { position: absolute; border-radius: 50%; pointer-events: none; }
+    .hero-glow-1 { top: -120px; right: -100px; width: 700px; height: 700px; background: radial-gradient(circle, rgba(220,38,38,.18) 0%, transparent 65%); }
+    .hero-glow-2 { bottom: -80px; left: -80px; width: 450px; height: 450px; background: radial-gradient(circle, rgba(220,38,38,.07) 0%, transparent 65%); }
+
+    /* Speed lines */
+    .speed-lines { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+    .speed-lines span {
+      position: absolute; left: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(220,38,38,.18), transparent);
+      animation: speedLine 5s ease-in-out infinite;
+    }
+    .speed-lines span:nth-child(1){top:14%;width:55%;animation-delay:0s}
+    .speed-lines span:nth-child(2){top:28%;width:38%;animation-delay:.9s}
+    .speed-lines span:nth-child(3){top:48%;width:68%;animation-delay:1.8s}
+    .speed-lines span:nth-child(4){top:63%;width:48%;animation-delay:2.7s}
+    .speed-lines span:nth-child(5){top:78%;width:32%;animation-delay:1.3s}
+    @keyframes speedLine {
+      0%{transform:translateX(-100%);opacity:0}15%{opacity:1}85%{opacity:1}100%{transform:translateX(120vw);opacity:0}
+    }
+
+    .hero-inner { max-width: 1280px; margin: 0 auto; padding: 4rem 2rem; width: 100%; position: relative; z-index: 1; display: flex; flex-wrap: wrap; align-items: center; gap: 4rem; }
+
+    /* Pill */
+    .pill { display: inline-flex; align-items: center; gap: 8px; padding: 8px 18px; border-radius: 999px; border: 1px solid rgba(220,38,38,.3); background: rgba(220,38,38,.06); color: #f87171; font-size: 10px; font-weight: 700; letter-spacing: .25em; text-transform: uppercase; margin-bottom: 1.5rem; }
+    .pill-dot { width: 6px; height: 6px; border-radius: 50%; background: #ef4444; animation: pulse 1.5s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)} }
+
+    .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(4.5rem,12vw,10rem); line-height: .88; color: #fff; letter-spacing: -.01em; margin-bottom: 1.5rem; }
+    .hero-title .outline { -webkit-text-stroke: 2px rgba(255,255,255,.18); color: transparent; }
+    .hero-title .red { color: #ef4444; }
+    .hero-subtitle { color: rgba(255,255,255,.45); font-size: 14px; line-height: 1.75; max-width: 400px; margin-bottom: 2.5rem; }
+
+    .btn-row { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 0; }
+    .btn-red { display: inline-flex; align-items: center; gap: 10px; background: #dc2626; color: #fff; padding: 14px 32px; border-radius: 999px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .18em; transition: all .3s; box-shadow: 0 0 30px rgba(220,38,38,.4); }
+    .btn-red:hover { background: #b91c1c; box-shadow: 0 0 50px rgba(220,38,38,.6); transform: translateY(-2px); color: #fff; }
+    .btn-outline { display: inline-flex; align-items: center; gap: 10px; background: transparent; color: #fff; padding: 14px 32px; border-radius: 999px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .18em; border: 1px solid rgba(255,255,255,.22); transition: all .3s; }
+    .btn-outline:hover { border-color: rgba(255,255,255,.5); background: rgba(255,255,255,.05); color: #fff; }
+
+    /* Stats */
+    .hero-stats { display: flex; margin-top: 3rem; padding-top: 2.5rem; border-top: 1px solid rgba(255,255,255,.08); gap: 0; }
+    .stat { flex: 1; }
+    .stat+.stat { border-left: 1px solid rgba(255,255,255,.08); padding-left: 2rem; }
+    .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: #fff; line-height: 1; }
+    .stat-label { font-size: 10px; font-weight: 600; color: rgba(255,255,255,.3); text-transform: uppercase; letter-spacing: .25em; margin-top: 4px; }
+
+    /* Logo visual */
+    .hero-visual { display: flex; align-items: center; justify-content: center; flex: 1; min-width: 260px; }
+    .logo-ring { position: relative; width: 360px; height: 360px; }
+    .ring-outer { position: absolute; inset: 0; border-radius: 50%; border: 1px solid rgba(220,38,38,.2); animation: spin 20s linear infinite; }
+    .ring-inner { position: absolute; inset: 16px; border-radius: 50%; border: 1px dashed rgba(255,255,255,.07); animation: spin 30s linear infinite reverse; }
+    @keyframes spin { from{transform:rotate(0)}to{transform:rotate(360deg)} }
+    .logo-circle { position: absolute; inset: 32px; border-radius: 50%; background: linear-gradient(145deg,#1a1a1a,#0d0d0d); border: 1px solid rgba(255,255,255,.08); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 80px rgba(220,38,38,.12), inset 0 0 40px rgba(0,0,0,.5); overflow: hidden; }
+    .logo-circle img { width: 70%; height: 70%; object-fit: contain; filter: drop-shadow(0 0 20px rgba(220,38,38,.3)); transition: transform .7s; }
+    .logo-circle:hover img { transform: scale(1.08); }
+    .fbadge { position: absolute; width: 46px; height: 46px; border-radius: 50%; background: rgba(20,20,20,.9); border: 1px solid rgba(255,255,255,.1); display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(0,0,0,.4); backdrop-filter: blur(8px); }
+    .fbadge-1 { top: 4%; right: 18%; animation: floatY 3s ease-in-out infinite; }
+    .fbadge-2 { bottom: 16%; left: 6%; animation: floatY 4s ease-in-out infinite 1s; }
+    .fbadge-3 { top: 44%; right: 0; animation: floatY 3.5s ease-in-out infinite .5s; }
+    @keyframes floatY { 0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)} }
+
+    /* Scroll hint */
+    .scroll-hint { position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 6px; color: rgba(255,255,255,.2); font-size: 9px; font-weight: 700; letter-spacing: .25em; text-transform: uppercase; animation: bounceDown 2s ease-in-out infinite; }
+    @keyframes bounceDown { 0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)} }
+
+    /* ── MARQUEE ── */
+    .marquee-section { background: #111; border-top: 1px solid rgba(255,255,255,.05); border-bottom: 1px solid rgba(255,255,255,.05); padding: 18px 0; overflow: hidden; }
+    .marquee-track { display: flex; width: max-content; animation: marq 30s linear infinite; }
+    .marquee-track:hover { animation-play-state: paused; }
+    @keyframes marq { from{transform:translateX(0)}to{transform:translateX(-50%)} }
+    .marquee-item { display: flex; align-items: center; gap: 10px; padding: 0 36px; color: rgba(255,255,255,.18); font-size: 11px; font-weight: 800; letter-spacing: .25em; text-transform: uppercase; white-space: nowrap; }
+    .msep { color: rgba(220,38,38,.4); font-size: 8px; }
+
+    /* ── BENEFICIOS ── */
+    .section { padding: 100px 2rem; }
+    .section-inner { max-width: 1280px; margin: 0 auto; }
+    .eyebrow { display: block; font-size: 10px; font-weight: 800; letter-spacing: .3em; text-transform: uppercase; color: #ef4444; margin-bottom: 12px; }
+    .s-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem,6vw,4rem); line-height: .95; letter-spacing: -.01em; }
+    .benefits-header { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 2rem; margin-bottom: 3.5rem; }
+    .benefits-sub { color: #9ca3af; font-size: 14px; max-width: 280px; line-height: 1.7; }
+    .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 20px; }
+    .bcard { background: #fff; border: 1px solid #f0f0f0; border-radius: 20px; padding: 36px 28px; transition: all .4s; cursor: default; position: relative; overflow: hidden; }
+    .bcard:hover { border-color: #e5e5e5; transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,.08); }
+    .bcard::after { content:''; position: absolute; bottom:0; left:0; right:0; height:3px; background: linear-gradient(90deg,#dc2626,#f87171); transform: scaleX(0); transition: transform .4s; border-radius: 0 0 20px 20px; }
+    .bcard:hover::after { transform: scaleX(1); }
+    .bicon { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 20px; }
+    .btitle { font-size: 13px; font-weight: 900; color: #111; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+    .bdesc { font-size: 13px; color: #6b7280; line-height: 1.65; }
+
+    /* ── PASOS ── */
+    .steps-bg { background: #0d0d0d; }
+    .steps-grid-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; }
+    .steps-section { padding: 100px 2rem; position: relative; overflow: hidden; }
+    .steps-header { text-align: center; margin-bottom: 3.5rem; }
+    .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 20px; }
+    .scard { text-align: center; padding: 40px 24px; border-radius: 20px; border: 1px solid rgba(255,255,255,.06); background: rgba(255,255,255,.02); transition: all .4s; position: relative; overflow: hidden; }
+    .scard:hover { border-color: rgba(220,38,38,.25); background: rgba(255,255,255,.04); transform: translateY(-4px); }
+    .snum { font-family: 'Bebas Neue', sans-serif; font-size: 7rem; color: rgba(255,255,255,.03); line-height: 1; margin-bottom: -1rem; transition: color .4s; }
+    .scard:hover .snum { color: rgba(220,38,38,.07); }
+    .sicon { width: 54px; height: 54px; border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; background: rgba(220,38,38,.1); border: 1px solid rgba(220,38,38,.2); transition: all .4s; font-size: 18px; color: #ef4444; }
+    .scard:hover .sicon { background: #dc2626; border-color: #dc2626; color: #fff; }
+    .stitle { font-size: 13px; font-weight: 900; color: #fff; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 10px; }
+    .sdesc { font-size: 13px; color: rgba(255,255,255,.35); line-height: 1.65; }
+    .sline { position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, rgba(220,38,38,.5), transparent); transform: scaleX(0); transition: transform .5s; }
+    .scard:hover .sline { transform: scaleX(1); }
+
+    /* ── CTA ── */
+    .cta-section { background: linear-gradient(135deg, #dc2626, #b91c1c); padding: 90px 24px; text-align: center; position: relative; overflow: hidden; }
+    .cta-section::before { content:''; position:absolute;top:-50%;right:-10%;width:500px;height:500px;border-radius:50%;background:rgba(255,255,255,.06);pointer-events:none; }
+    .cta-section::after  { content:''; position:absolute;bottom:-50%;left:-10%;width:400px;height:400px;border-radius:50%;background:rgba(0,0,0,.1);pointer-events:none; }
+    .cta-inner { position: relative; z-index: 1; }
+    .cta-icon { width: 64px; height: 64px; border-radius: 50%; background: rgba(255,255,255,.15); display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; }
+    .cta-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem,7vw,5rem); color: #fff; line-height: .95; letter-spacing: -.01em; margin-bottom: 16px; }
+    .cta-sub { color: rgba(255,255,255,.75); font-size: 15px; max-width: 460px; margin: 0 auto 40px; line-height: 1.6; }
+    .btn-white { display: inline-flex; align-items: center; gap: 10px; background: #fff; color: #dc2626; padding: 16px 36px; border-radius: 999px; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: .18em; transition: all .3s; box-shadow: 0 8px 30px rgba(0,0,0,.2); }
+    .btn-white:hover { background: #f9fafb; transform: translateY(-3px); box-shadow: 0 16px 40px rgba(0,0,0,.25); color: #dc2626; }
+
+    /* ── FOOTER ── */
+    footer { background: #0a0a0a; color: #6b7280; padding: 70px 2rem 32px; }
+    .footer-top { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 3rem; margin-bottom: 3rem; }
+    .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; color: #fff; letter-spacing: .05em; margin-bottom: 12px; text-shadow: 0 0 40px rgba(220,38,38,.25); }
+    .footer-logo span { color: #ef4444; }
+    .footer-p { font-size: 13px; line-height: 1.7; max-width: 280px; margin-bottom: 1.5rem; }
+    .social-links { display: flex; gap: 12px; }
+    .social-link { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(255,255,255,.1); display: flex; align-items: center; justify-content: center; font-size: 14px; color: #6b7280; transition: all .3s; }
+    .social-link:hover { color: #fff; }
+    .social-link.wa:hover { background: #22c55e; border-color: #22c55e; }
+    .social-link.ig:hover { background: linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045); border-color: transparent; }
+    .footer-h { font-size: 10px; font-weight: 800; letter-spacing: .25em; text-transform: uppercase; color: #fff; margin-bottom: 1.5rem; }
+    .footer-links { display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { font-size: 13px; color: #6b7280; display: flex; align-items: center; gap: 8px; transition: color .2s; }
+    .footer-links a:hover { color: #fff; }
+    .fchev { color: #dc2626; font-size: 8px; }
+    .footer-info p { font-size: 13px; display: flex; align-items: flex-start; gap: 8px; margin-bottom: 10px; }
+    .footer-info .icon { color: #ef4444; font-size: 11px; margin-top: 2px; flex-shrink: 0; }
+    .map-wrap { border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,.06); height: 140px; margin-top: 16px; }
+    .footer-bottom { max-width: 1280px; margin: 0 auto; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,.05); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; font-size: 10px; letter-spacing: .15em; text-transform: uppercase; color: rgba(255,255,255,.2); }
+    .active-dot { display: inline-flex; align-items: center; gap: 8px; }
+    .dot-green { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; animation: pulse 1.5s ease-in-out infinite; }
+
+    /* ── WA FLOAT ── */
+    .wa-float { position: fixed; bottom: 28px; right: 28px; z-index: 999; width: 56px; height: 56px; border-radius: 50%; background: #22c55e; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 24px; text-decoration: none; box-shadow: 0 4px 24px rgba(34,197,94,.45); transition: all .3s; }
+    .wa-float:hover { background: #16a34a; transform: scale(1.12); box-shadow: 0 6px 36px rgba(34,197,94,.6); color: #fff; }
+    .wa-tip { position: absolute; right: 68px; background: #111; color: #fff; font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: 8px 14px; border-radius: 8px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .3s; }
+    .wa-float:hover .wa-tip { opacity: 1; }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:768px){
+      .nav-links { display: none; }
+      .hamburger { display: block; }
+      .hero-visual { display: none; }
+      .logo-ring { width: 260px; height: 260px; }
+      .hero-stats { gap: 0; }
+      .stat+.stat { padding-left: 1.2rem; }
+    }
+  </style>
 </head>
-<body class="bg-gray-50 text-gray-900 antialiased">
+<body>
 
-    <div x-data="appStorage()" x-init="initSwipers()" x-cloak>
+  <div id="progress-bar"></div>
 
-        <nav class="bg-white border-b border-gray-100 sticky top-0 z-40">
-            <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-                <a href="#" class="text-2xl font-black tracking-tighter text-gray-900 uppercase">
-                    AUTIQ<span class="text-gray-400">.</span>
-                </a>
-                <div class="hidden md:flex items-center gap-10">
-                    <a href="#" class="text-[10px] uppercase font-bold tracking-[0.2em] text-gray-800 hover:text-gray-400 transition">Inicio</a>
-                    <a href="#catalogo" class="text-[10px] uppercase font-bold tracking-[0.2em] text-autiq hover:text-red-700 transition">Catálogo</a>
-                </div>
-            </div>
-        </nav>
-
-        <header class="bg-white flex items-center border-b border-gray-100 min-h-[calc(100vh-80px)]">
-            <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center w-full py-12">
-                
-                <div class="space-y-8 order-2 md:order-1 text-center md:text-left">
-                    <h1 class="text-5xl md:text-7xl font-black tracking-tighter text-gray-950 leading-[0.9]">
-                        Accesorios para vehículo
-                    </h1>
-                    <div class="space-y-2 flex flex-col items-center md:items-start">
-                        <p class="text-sm md:text-lg text-autiq font-bold uppercase tracking-[0.3em]">
-                            PERSONALIZA | PROTEGE | DESTACA
-                        </p>
-                        <div class="h-1 w-20 bg-gray-900"></div>
-                    </div>
-                    <p class="text-gray-600 leading-relaxed max-w-md mx-auto md:mx-0 text-base md:text-lg">
-                        Tienda virtual especializada en accesorios que elevan el estilo y la protección de tu auto.
-                    </p>
-                    <a href="#catalogo" class="inline-block bg-gray-950 text-white px-10 py-4 rounded-full text-xs font-black uppercase tracking-widest hover:bg-gray-800 transition-all shadow-xl">
-                        Ver Catálogo
-                    </a>
-                </div>
-
-                <div class="flex justify-center md:justify-end order-1 md:order-2">
-                    <div class="relative w-full max-w-[260px] md:max-w-sm aspect-square">
-                        <div class="absolute inset-0 bg-gray-100 rounded-full scale-110 blur-3xl opacity-50"></div>
-                        <img src="img/logo.png" alt="AUTIQ" class="relative z-10 w-full h-full object-contain drop-shadow-2xl border border-gray-300 rounded-full bg-white">
-                    </div>
-                </div>
-
-            </div>
-        </header>
-
-        <main id="catalogo" class="container mx-auto px-6 py-16 pt-16 scroll-mt-20">
-            <h2 class="text-2xl font-light text-gray-400 uppercase tracking-widest mb-12 border-b border-gray-100 pb-4">Nuestros Productos</h2>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
-                <template x-for="product in productos" :key="product.id">
-                    <div class="group border border-gray-300 p-4 bg-white flex flex-col h-full hover:shadow-xl transition-shadow-2xl duration-300 rounded-xl">
-                        <div class="relative overflow-hidden aspect-square bg-gray-50 rounded-lg mb-4">
-                            <div class="swiper product-swiper h-full">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide cursor-zoom-in" @click="openModal = true; modalImg = product.image1">
-                                        <img :src="product.image1" class="w-full h-full object-contain p-2" loading="lazy">
-                                    </div>
-                                    <template x-if="product.image2">
-                                        <div class="swiper-slide cursor-zoom-in" @click="openModal = true; modalImg = product.image2">
-                                            <img :src="product.image2" class="w-full h-full object-contain p-2" loading="lazy">
-                                        </div>
-                                    </template>
-                                </div>
-                                <div class="swiper-button-next !text-gray-900 !after:text-[12px] bg-white/80 w-8 h-8 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                <div class="swiper-button-prev !text-gray-900 !after:text-[12px] bg-white/80 w-8 h-8 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                <div class="swiper-pagination !bottom-2"></div>
-                            </div>
-                        </div>
-                        <div class="grow flex flex-col px-1">
-                            <h3 class="font-bold text-sm text-gray-900 uppercase tracking-tighter" x-text="product.name"></h3>
-                            <p class="text-[11px] text-gray-500 mt-2 line-clamp-2 italic" x-text="product.description"></p>
-                        </div>
-                        <div class="mt-auto flex justify-between items-center border-t border-gray-50 pt-4">
-                            <span class="font-mono font-bold text-gray-950 text-lg" x-text="product.price"></span>
-                        </div>
-                    </div>
-                </template>
-            </div>
-        </main>
-
-        <footer class="bg-gray-950 text-gray-300 py-16 mt-16 border-t border-gray-800">
-            <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-12">
-                <div class="space-y-6">
-                    <h4 class="text-xs uppercase font-black tracking-[0.2em] text-white">AUTIQ Accesorios</h4>
-                    <p class="text-sm leading-relaxed">Tienda Virtual Copacabana Machado. <br>Personaliza, Protege y Destaca tu vehículo con nosotros.</p>
-
-                    <div class="flex items-center gap-4 pt-2">
-                        <a href="https://instagram.com/auti.q" target="_blank" class="w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center hover:bg-pink-600 transition-colors text-white border border-gray-800">
-                            <i class="fa-brands fa-instagram text-xl"></i>
-                        </a>
-                        <a :href="whatsappUrl" target="_blank" class="w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center hover:bg-green-600 transition-colors text-white border border-gray-800">
-                            <i class="fa-brands fa-whatsapp text-xl"></i>
-                        </a>
-                    </div>
-                </div>
-            
-                <div class="space-y-4">
-                    <h4 class="text-xs uppercase font-black tracking-[0.2em] text-white">Atención al cliente</h4>
-                    <p class="text-sm italic">Lunes a Viernes: 9am - 6pm</p>
-                    <p class="text-sm">Sábados y domingos: 9am - 3pm</p>
-                    <p class="text-sm text-gray-500 mt-4">Punto de recogida en Copacabana (Bajo disponibilidad previa)</p>
-                </div>
-            
-                <div class="relative overflow-hidden rounded-xl border border-gray-800 h-48 bg-gray-900 shadow-lg">
-                    <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.48451802881!2d-75.535457!3d6.331214600000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e442f651dfc068d%3A0xc3733830310ce7e2!2sAllegro%20Apartamentos!5e0!3m2!1ses!2sco!4v1774302293964!5m2!1ses!2sco"
-                        class="w-full h-full" 
-                        style="border:0;" 
-                        allowfullscreen="" 
-                        loading="lazy" 
-                        referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
-                </div>
-            </div>
-            <div class="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-gray-900 text-center">
-                <p class="text-[10px] uppercase tracking-[0.3em] text-gray-600">© 2026 AUTIQ. Todos los derechos reservados.</p>
-            </div>
-        </footer>
-
-        <a :href="whatsappUrl" 
-           target="_blank" 
-           class="fixed bottom-8 right-8 z-[90] bg-green-500 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl hover:bg-green-600 transition-all hover:scale-110 animate-whatsapp">
-            <i class="fa-brands fa-whatsapp text-3xl"></i>
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">AUTIQ<span>.</span></a>
+      <div class="nav-links">
+        <a href="index.html" class="active">Inicio</a>
+        <a href="catalogo.html">Catálogo</a>
+        <a href="https://wa.me/573206583971" target="_blank" class="nav-wa">
+          <i class="fa-brands fa-whatsapp"></i> WhatsApp
         </a>
+      </div>
+      <button class="hamburger" onclick="document.getElementById('mobile-menu').classList.toggle('open')">
+        <i class="fa-solid fa-bars-staggered"></i>
+      </button>
+    </div>
+  </nav>
 
-        <template x-teleport="body">
-            <div x-show="openModal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-6" x-transition.opacity @keydown.escape.window="openModal = false" @click.self="openModal = false" style="display: none;">
-                <button @click="openModal = false" class="absolute top-5 right-5 text-white/50 hover:text-white text-4xl font-thin">×</button>
-                <div class="relative max-w-lg w-full mx-auto bg-white p-2 rounded-lg" @click.stop>
-                    <img :src="modalImg" class="w-full h-auto max-h-[75vh] object-contain rounded-sm">
-                    <div class="py-2 text-center border-t border-gray-50 mt-2">
-                        <p class="text-[10px] uppercase tracking-widest text-gray-400 font-bold">Vista Previa AUTIQ</p>
-                    </div>
-                </div>
-            </div>
-        </template>
+  <!-- MOBILE MENU -->
+  <div id="mobile-menu">
+    <button class="close-btn" onclick="document.getElementById('mobile-menu').classList.remove('open')">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <span class="mob-logo">AUTIQ<span>.</span></span>
+    <a href="index.html" onclick="document.getElementById('mobile-menu').classList.remove('open')">Inicio</a>
+    <a href="catalogo.html" onclick="document.getElementById('mobile-menu').classList.remove('open')">Catálogo</a>
+    <a href="https://wa.me/573206583971" target="_blank" style="background:#22c55e;color:#fff;padding:14px 32px;border-radius:999px;font-size:1rem;font-weight:700;">
+      <i class="fa-brands fa-whatsapp"></i> WhatsApp
+    </a>
+  </div>
 
-    </div> 
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-glow hero-glow-1"></div>
+    <div class="hero-glow hero-glow-2"></div>
+    <div class="speed-lines">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <div class="hero-inner">
+      <!-- Texto -->
+      <div style="flex:1;min-width:280px;">
+        <div class="pill">
+          <span class="pill-dot"></span>
+          Tienda Virtual · Copacabana
+        </div>
+        <h1 class="hero-title">
+          ELEVA<br>
+          <span class="outline">TU</span><br>
+          <span class="red">AUTO.</span>
+        </h1>
+        <p class="hero-subtitle">
+          Accesorios premium para vehículos. Diseño, calidad y tendencia
+          en una sola tienda. Porque tu auto merece lo mejor.
+        </p>
+        <div class="btn-row">
+          <a href="catalogo.html" class="btn-red">
+            Ver Catálogo <i class="fa-solid fa-arrow-right" style="font-size:11px;"></i>
+          </a>
+          <a href="https://wa.me/573206583971" target="_blank" class="btn-outline">
+            <i class="fa-brands fa-whatsapp" style="color:#4ade80;font-size:16px;"></i> WhatsApp
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <div class="stat-num counter" data-target="9" data-suffix="+">9+</div>
+            <div class="stat-label">Productos</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num counter" data-target="200" data-suffix="+">200+</div>
+            <div class="stat-label">Clientes</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">9+</div>
+            <div class="stat-label">Marcas</div>
+          </div>
+        </div>
+      </div>
 
-    <script>
-        function appStorage() {
-            return {
-                openModal: false,
-                modalImg: '',
-                whatsappPhone: '573206583971',
-                whatsappMessage: 'Hola AUTIQ! Vi tu catálogo y me interesa obtener más información sobre un accesorio.',
-                
-                get whatsappUrl() {
-                    return `https://wa.me/${this.whatsappPhone}?text=${encodeURIComponent(this.whatsappMessage)}`;
-                },
+      <!-- Logo Visual -->
+      <div class="hero-visual">
+        <div class="logo-ring">
+          <div class="ring-outer"></div>
+          <div class="ring-inner"></div>
+          <div class="logo-circle">
+            <img src="images/logo.png" alt="AUTIQ Logo">
+          </div>
+          <div class="fbadge fbadge-1"><i class="fa-solid fa-shield-halved" style="color:#f87171;font-size:18px;"></i></div>
+          <div class="fbadge fbadge-2"><i class="fa-solid fa-star" style="color:#facc15;font-size:18px;"></i></div>
+          <div class="fbadge fbadge-3"><i class="fa-solid fa-bolt" style="color:#60a5fa;font-size:18px;"></i></div>
+        </div>
+      </div>
+    </div>
 
-                // REVISIÓN DE RUTAS (Ojo con Mayúsculas)
-                productos: [
-                    { id: 1, name: 'CARBLOCK', description: 'Elegancia y confort en un mismo Aroma. Edición Gold.', price: '$55.000', image1: 'img/Carblock.png', image2: 'img/Carblock1.png' },
-                    { id: 2, name: 'TAPA VALVULA HYUNDAI + LLAVERO', description: 'Tapa de válvula con diseño exclusivo para vehículos HYUNDAI.', price: '$22.000', image1: 'img/HYUNDAI.png', image2: 'img/HyundaiCar.png' },
-                    { id: 3, name: 'TAPAS VÁLVULA SUZUKI + LLAVERO', description: 'Set completo de 4 tapas en negro mate con logo Suzuki.', price: '$22.000', image1: 'img/SUZUKI.1.png', image2: 'img/SuzukiCar.png' },
-                    { id: 4, name: 'TAPAS VÁLVULA RENAULT + LLAVERO', description: 'Calidad premium para tu Renault.', price: '$22.000', image1: 'img/RENAULT.png', image2: 'img/RenaultCar.png' },
-                    { id: 5, name: 'TAPAS VÁLVULA MAZDA + LLAVERO', description: 'Personalización total para tu Mazda.', price: '$22.000', image1: 'img/MAZDA.png', image2: 'img/MazdaCar.png' },
-                    { id: 6, name: 'TAPAS VÁLVULA FORD + LLAVERO', description: 'Resistencia y estilo para tu Ford.', price: '$22.000', image1: 'img/FORD.png', image2: 'img/FordCard.png' },
-                    // A partir de aquí corregí las mayúsculas críticas que vi en tu captura
-                    { id: 7, name: 'TAPAS VÁLVULA BMW + LLAVERO', description: 'El detalle que tu BMW merece.', price: '$22.000', image1:'img/BMW.1.png', image2:'img/BMWCar.png'},
-                    { id: 8, name: 'TAPAS VÁLVULA MERCEDES + LLAVERO', description: 'Lujo y distinción en cada detalle.', price: '$22.000', image1: 'img/MERCEDEZ.1.png', image2:'img/MercedezCar.png' },
-                    { id: 9, name: 'TAPAS VÁLVULA AUDI + LLAVERO', description: 'Diseño deportivo para tu Audi.', price: '$22.000', image1: 'img/AUDI.1.png', image2:'img/AudiCar.png' }
-                ],
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <i class="fa-solid fa-chevron-down" style="font-size:10px;"></i>
+    </div>
+  </section>
 
-                initSwipers() {
-                    this.$nextTick(() => {
-                        document.querySelectorAll('.product-swiper').forEach(el => {
-                            new Swiper(el, {
-                                spaceBetween: 10,
-                                grabCursor: true,
-                                pagination: { el: el.querySelector('.swiper-pagination'), clickable: true },
-                                navigation: { nextEl: el.querySelector('.swiper-button-next'), prevEl: el.querySelector('.swiper-button-prev') },
-                            });
-                        });
-                    });
-                }
-            }
-        }
-    </script>
+  <!-- MARQUEE -->
+  <section class="marquee-section">
+    <div class="marquee-track">
+      <div class="marquee-item"><span class="msep">◆</span> AUDI</div>
+      <div class="marquee-item"><span class="msep">◆</span> BMW</div>
+      <div class="marquee-item"><span class="msep">◆</span> FORD</div>
+      <div class="marquee-item"><span class="msep">◆</span> MAZDA</div>
+      <div class="marquee-item"><span class="msep">◆</span> CHEVROLET</div>
+      <div class="marquee-item"><span class="msep">◆</span> RENAULT</div>
+      <div class="marquee-item"><span class="msep">◆</span> TOYOTA</div>
+      <div class="marquee-item"><span class="msep">◆</span> KIA</div>
+      <div class="marquee-item"><span class="msep">◆</span> HYUNDAI</div>
+      <div class="marquee-item"><span class="msep">◆</span> NISSAN</div>
+      <div class="marquee-item"><span class="msep">◆</span> VOLKSWAGEN</div>
+      <div class="marquee-item"><span class="msep">◆</span> MERCEDES</div>
+      <!-- Repetir para loop infinito -->
+      <div class="marquee-item"><span class="msep">◆</span> AUDI</div>
+      <div class="marquee-item"><span class="msep">◆</span> BMW</div>
+      <div class="marquee-item"><span class="msep">◆</span> FORD</div>
+      <div class="marquee-item"><span class="msep">◆</span> MAZDA</div>
+      <div class="marquee-item"><span class="msep">◆</span> CHEVROLET</div>
+      <div class="marquee-item"><span class="msep">◆</span> RENAULT</div>
+      <div class="marquee-item"><span class="msep">◆</span> TOYOTA</div>
+      <div class="marquee-item"><span class="msep">◆</span> KIA</div>
+      <div class="marquee-item"><span class="msep">◆</span> HYUNDAI</div>
+      <div class="marquee-item"><span class="msep">◆</span> NISSAN</div>
+      <div class="marquee-item"><span class="msep">◆</span> VOLKSWAGEN</div>
+      <div class="marquee-item"><span class="msep">◆</span> MERCEDES</div>
+    </div>
+  </section>
+
+  <!-- BENEFICIOS -->
+  <section class="section" style="background:#fff;">
+    <div class="section-inner">
+      <div class="benefits-header">
+        <div>
+          <span class="eyebrow">¿Por qué elegirnos?</span>
+          <h2 class="s-title">La diferencia<br>está en los detalles.</h2>
+        </div>
+        <p class="benefits-sub">Cada accesorio es seleccionado para garantizar calidad, estilo y funcionalidad.</p>
+      </div>
+      <div class="benefits-grid">
+        <div class="bcard">
+          <div class="bicon" style="background:#fff1f2;"><i class="fa-solid fa-shield-halved" style="color:#ef4444;"></i></div>
+          <div class="btitle">Calidad Garantizada</div>
+          <p class="bdesc">Productos verificados y seleccionados para durar en el tiempo.</p>
+        </div>
+        <div class="bcard">
+          <div class="bicon" style="background:#eff6ff;"><i class="fa-solid fa-truck-fast" style="color:#3b82f6;"></i></div>
+          <div class="btitle">Envío Rápido</div>
+          <p class="bdesc">Despacho ágil a todo el país desde Copacabana.</p>
+        </div>
+        <div class="bcard">
+          <div class="bicon" style="background:#f0fdf4;"><i class="fa-solid fa-headset" style="color:#22c55e;"></i></div>
+          <div class="btitle">Soporte WhatsApp</div>
+          <p class="bdesc">Atención personalizada de Lunes a Viernes por WhatsApp.</p>
+        </div>
+        <div class="bcard">
+          <div class="bicon" style="background:#fefce8;"><i class="fa-solid fa-tags" style="color:#eab308;"></i></div>
+          <div class="btitle">Precios Justos</div>
+          <p class="bdesc">Accesorios premium sin precios exagerados.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PASOS -->
+  <section class="steps-bg steps-section">
+    <div class="steps-grid-bg"></div>
+    <div class="section-inner" style="position:relative;z-index:1;">
+      <div class="steps-header">
+        <span class="eyebrow">Simple y rápido</span>
+        <h2 class="s-title" style="color:#fff;">¿Cómo comprar?</h2>
+      </div>
+      <div class="steps-grid">
+        <div class="scard">
+          <div class="snum">01</div>
+          <div class="sicon"><i class="fa-solid fa-magnifying-glass"></i></div>
+          <div class="stitle">Explora el Catálogo</div>
+          <p class="sdesc">Navega nuestro catálogo y encuentra el accesorio perfecto para tu vehículo.</p>
+          <div class="sline"></div>
+        </div>
+        <div class="scard">
+          <div class="snum">02</div>
+          <div class="sicon"><i class="fa-solid fa-comment-dots"></i></div>
+          <div class="stitle">Contáctanos</div>
+          <p class="sdesc">Escríbenos por WhatsApp con el producto que te interesa y coordina tu compra.</p>
+          <div class="sline"></div>
+        </div>
+        <div class="scard">
+          <div class="snum">03</div>
+          <div class="sicon"><i class="fa-solid fa-check-circle"></i></div>
+          <div class="stitle">Recibe tu Pedido</div>
+          <p class="sdesc">Recíbelo en casa o pasa a nuestro punto de recogida en Copacabana.</p>
+          <div class="sline"></div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:3rem;">
+        <a href="catalogo.html" class="btn-red">Ir al Catálogo <i class="fa-solid fa-arrow-right" style="font-size:11px;"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-inner">
+      <div class="cta-icon"><i class="fa-brands fa-whatsapp" style="color:#fff;font-size:28px;"></i></div>
+      <h2 class="cta-title">¿Tienes alguna<br>pregunta?</h2>
+      <p class="cta-sub">Nuestro equipo está listo para ayudarte. Escríbenos y te respondemos de inmediato.</p>
+      <a href="https://wa.me/573206583971?text=Hola!%20Vi%20el%20catálogo%20de%20AUTIQ%20y%20quisiera%20más%20información." target="_blank" class="btn-white">
+        <i class="fa-brands fa-whatsapp" style="color:#22c55e;font-size:18px;"></i> Chatear Ahora
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div style="max-width:1280px;margin:0 auto;">
+      <div class="footer-top">
+        <div>
+          <div class="footer-logo">AUTIQ<span>.</span></div>
+          <p class="footer-p">Tienda virtual especializada en accesorios premium para vehículos. Diseño, calidad y tendencia.</p>
+          <div class="social-links">
+            <a href="https://wa.me/573206583971" target="_blank" class="social-link wa"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="https://www.instagram.com/tiendavirtualcopacabana" target="_blank" class="social-link ig"><i class="fa-brands fa-instagram"></i></a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-h">Navegación</div>
+          <div class="footer-links">
+            <a href="index.html"><i class="fa-solid fa-chevron-right fchev"></i> Inicio</a>
+            <a href="catalogo.html"><i class="fa-solid fa-chevron-right fchev"></i> Catálogo</a>
+            <a href="https://wa.me/573206583971" target="_blank"><i class="fa-solid fa-chevron-right fchev"></i> Contacto</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-h">Contacto</div>
+          <div class="footer-info">
+            <p><i class="fa-solid fa-location-dot icon"></i> Copacabana, Antioquia · Tienda Virtual</p>
+            <p><i class="fa-solid fa-clock icon"></i> Lun–Vie: 9am – 6pm</p>
+            <p><a href="https://wa.me/573206583971" target="_blank" style="color:#6b7280;transition:color .2s;" onmouseover="this.style.color='#4ade80'" onmouseout="this.style.color='#6b7280'"><i class="fa-brands fa-whatsapp" style="color:#22c55e;font-size:11px;"></i> +57 320 658 3971</a></p>
+          </div>
+          <div class="map-wrap">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.4844772601614!2d-75.54032791477087!3d6.331219909032882!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e442f651dfc068d%3A0xc3733830310ce7e2!2sAllegro%20Apartamentos!5e0!3m2!1ses!2sco!4v1773792110507!5m2!1ses!2sco" width="100%" height="100%" style="border:0;filter:grayscale(60%) invert(90%) contrast(80%);" allowfullscreen loading="lazy"></iframe>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 AUTIQ Accesorios. Todos los derechos reservados.</span>
+        <span class="active-dot"><span class="dot-green"></span> Tienda activa</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WA FLOAT -->
+  <a href="https://wa.me/573206583971?text=Hola!%20Quisiera%20información%20sobre%20accesorios." target="_blank" class="wa-float">
+    <i class="fa-brands fa-whatsapp"></i>
+    <span class="wa-tip">¡Escríbenos!</span>
+  </a>
+
+  <script>
+    // Navbar scroll
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+      const pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+      document.getElementById('progress-bar').style.width = pct + '%';
+    }, {passive:true});
+
+    // Contador animado
+    const counters = document.querySelectorAll('.counter[data-target]');
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target, target = +el.dataset.target, suffix = el.dataset.suffix || '+';
+        let cur = 0;
+        const step = Math.max(1, Math.ceil(target / 50));
+        const t = setInterval(() => { cur = Math.min(cur + step, target); el.textContent = cur + suffix; if (cur >= target) clearInterval(t); }, 25);
+        obs.unobserve(el);
+      });
+    }, {threshold: .5});
+    counters.forEach(c => obs.observe(c));
+  </script>
 </body>
 </html>
